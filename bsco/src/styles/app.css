@@ -1,0 +1,59 @@
+.app {
+  text-align: center;
+}
+
+.app-header{
+  background-color: aquamarine;
+  font-size: 8vw;
+  padding: 1%;
+}
+
+.search-container{
+  display: grid;
+  background-color:darkmagenta;
+  grid-template-columns: 9fr 1fr 10fr 10fr;
+}
+
+.hashtag{
+  background-color: coral;
+  text-align: end;
+  grid-column: 2;
+  font-size: 8vw;
+}
+
+.search-bar{
+  background-color: crimson;
+  grid-column: 3;
+  text-align: center;
+}
+
+.content-container{
+  background-color:burlywood;
+  display: grid;
+  padding: 1%;
+  height: 75vh;
+}
+
+.link-container{
+  /* margin: 1vw; */
+  position:absolute;
+  bottom: 80%;
+  left: 15%;
+}
+
+.titleChars{
+  font-size: 4vh;
+  padding-left: 3vh;
+  background: transparent;
+  outline: none;
+  border: none;
+}
+
+.titleO{
+  font-size: 5vh;
+  padding-top: 1vh;
+  padding-left: 3vh;
+  background: transparent;
+  outline: none;
+  border: none;
+}
