@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="afb507ce-f020-4a8b-8e3e-69640191e53e" name="Default Changelist" comment="" />
+    <list default="true" id="afb507ce-f020-4a8b-8e3e-69640191e53e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/helpers/db.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middleware/db.controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/middleware/input.controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bsco/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bsco/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bsco/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/src/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bsco/src/components/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/src/components/content.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bsco/src/components/create_form.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bsco/src/components/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/src/components/modal.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bsco/src/services/api_service.js" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/src/services/api_service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/middleware/emoji.controller.js" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,7 +30,11 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
   <component name="ProjectId" id="1pbL4MlssGzHy6uZfebUqOOVu1c" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -40,11 +60,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1615446650762</updated>
-      <workItem from="1615446651913" duration="14720000" />
+      <workItem from="1615446651913" duration="15328000" />
+      <workItem from="1615791094700" duration="1271000" />
+      <workItem from="1615832473558" duration="16552000" />
+      <workItem from="1616277007638" duration="25218000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2536" y="240" key="run.anything.popup" timestamp="1616283795717">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2536" y="240" key="run.anything.popup/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1616283795717" />
   </component>
 </project>
