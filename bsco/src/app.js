@@ -1,38 +1,50 @@
 import './styles/app.css';
-import SearchBar from "./components/search_bar";
 import Content from "./components/content";
-import { useMediaQuery } from 'react-responsive';
-import React, { Component } from 'react';
-import Modal from './components/modal';
-import EmojiForm from './components/create_form';
-
-// const headerStyle = isDesktopOrLaptop ? {}: ;
+import React, { Component, useEffect } from 'react';
+import PointModal from './components/pointModal';
+import CreateModal from './components/createModal';
+import EmojiForm from './components/emoji_form';
+import ContentForm from './components/content_form';
+import { BrowserRouter as Router, Route, Switch, useParams} from 'react-router-dom';
+import api_service from './services/api_service';
+import axios from 'axios';
 
 const isComputer=true;
 const headerStyle = isComputer
 ? {fontSize: "2vw", padding: "1%"} 
 : {fontSize: "6vw", padding: "1%"};
 
-
 class App extends Component{
 
 constructor() {
   super();
-  this.state = {show: false, mode: 'connect', matches: window.matchMedia("(min-width: 1224px)").matches};
+  this.state = {showPm: false, showCm: false, mode: 'connect', matches: window.matchMedia("(min-width: 1224px)").matches, 
+                emojiList: [], emojiPath: "/", isLoading: false};
 
   this.onChangeMode = this.onChangeMode.bind(this);
   this.showModal = this.showModal.bind(this);
   this.hideModal = this.hideModal.bind(this);
 }
+/////////////////////////////
 
-showModal = () => {
-  this.setState({ show: true });
-  this.setState({mode: "connect"});
+/////////////////////////
+showModal = (newMode) => {
+  if (newMode === 'connect') {
+    this.setState({ showPm: true });
+    this.setState({mode: "connect"});
+  }
+
+  if (newMode === 'breate') {
+    this.setState({ showCm: true });
+    this.setState({mode: "breate"});
+  }
+
   console.log(this.state.mode);
 };
 
 hideModal = () => {
-  this.setState({ show: false });
+  this.setState({ showPm: false });
+  this.setState({ showCm: false });
 };
 
 onChangeMode = (newMode) => {
@@ -40,35 +52,40 @@ onChangeMode = (newMode) => {
   console.log(this.state.mode);
 };
 
-// componentDidMount() {
-//   // const isComputer = useMediaQuery({
-//   //   query: '(min-device-width: 1224px)'
-//   // });
-//   const mql = window.matchMedia("(min-width: 1224px)");
-//   mql.addEventListener("change", () => {
-//     this.checkNative();
-//   });
-//   console.log(mql)
-// }
 
 render() {
-    return (
+
+  return (
+    <Router>
       <div style={{"textAlign": "center"}}>
         <header style={headerStyle}>
-          <button class="titleChars" onClick={()=>this.onChangeMode("breate")}>{this.state.mode === "breate" ? "🅱️" : "b"}</button>
-          <button class="titleChars" onClick={()=>this.onChangeMode("search")}>{this.state.mode === "search" ? "🔎" : "s"}</button>
-          <button class="titleChars" onClick={this.showModal}>{this.state.mode === "connect" ? "🔗" : "c"}</button>
-          <button class="titleChars" onClick={()=>this.onChangeMode("open")}>{this.state.mode === "open" ? "📖": "o"}</button> 
+          <button className="titleChars" onClick={()=>this.showModal("breate")}>{this.state.mode === "breate" ? "🅱️" : "b"}</button>
+          <button className="titleChars" onClick={()=>this.onChangeMode("search")}>{this.state.mode === "search" ? "🔎" : "s"}</button>
+          <button className="titleChars" onClick={()=>this.showModal("connect")}>{this.state.mode === "connect" ? "🔗" : "c"}</button>
+          <button className="titleChars" onClick={()=>this.onChangeMode("open")}>{this.state.mode === "open" ? "📖": "o"}</button> 
         </header>
-          <Content isComputer={window.innerWidth > 1000} route={true}/>
+          <Switch>
+            <Route exact path="/:emojiPath?">
+              { true===true
+                ? <Content isComputer={window.innerWidth > 1000} route={true} isLoading={this.isLoading} emojiList={this.emojiList}/>
+                : <Content isComputer={window.innerWidth > 1000} route={true} isLoading={this.isLoading} emojiList={this.emojiList}/>
+              }
 
-          <Modal show={this.state.show} handleClose={this.hideModal} isComputer={window.innerWidth > 1000}>
-            <p style={{marginTop:""}}>connect a point</p>
-            <EmojiForm isComputer={window.innerWidth > 1000}/>
-          </Modal>
-      </div>
+              <PointModal show={this.state.showPm} handleClose={this.hideModal} isComputer={window.innerWidth > 1000}>
+                <p style={{marginTop:""}}>connect a point</p>
+                <EmojiForm isComputer={window.innerWidth > 1000}/>
+              </PointModal>
+
+              <CreateModal show={this.state.showCm} handleClose={this.hideModal} isComputer={window.innerWidth > 1000}>
+                <p style={{marginTop:""}}>breate</p>
+                <ContentForm isComputer={window.innerWidth > 1000} clue={"big chungus is very big"}/>
+              </CreateModal>
+
+            </Route>
+          </Switch>
+        </div>
+      </Router>
     );
   }
 }
-
 export default App;

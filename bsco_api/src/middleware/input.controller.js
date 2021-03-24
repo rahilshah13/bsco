@@ -1,4 +1,4 @@
-const { EMOJI_SET, PERCENT_ENCODINGS, STR_LEN_SET }  = require('../helpers/emojiSet');
+const { EMOJI_SET, PERCENT_ENCODINGS, STR_LEN_SET } = require('../helpers/emojiSet');
 const haiku = require('haiku-detect');
 const request = require("request");
 
@@ -15,11 +15,11 @@ function validatePoint(req, res, next) {
             if(validationRes === 'valid') {
                 let emojiString = req.path.replace("/", "");
 
-                req.body.parentPath = emojiString;
-                req.body.fullPath = emojiString + emoji;
+                req.body.parentPath = emojiString === "" ? "/" : emojiString;
+                req.body.fullPath = emojiString + encodeURIComponent(emoji);
 
-                console.log("parent emoji path: "+req.parentPath);
-                console.log("full emoji path: "+req.fullPath);
+                console.log("parent emoji path: "+req.body.parentPath);
+                console.log("full emoji path: "+req.body.fullPath);
 
                 while (STR_LEN_SET.has(emojiString.length)) {
                     if (PERCENT_ENCODINGS.has(emojiString.substring(0, 12))) {
@@ -29,15 +29,18 @@ function validatePoint(req, res, next) {
                     }
                 }
 
-                if (emojiString.length == 0)
+                if (emojiString.length == 0) {
+                    console.log("valid emoji string");
                     return next();
+                }
             }
         }
     } catch (e) {
-        return res.status(404).send("<p>error</p>");
+        console.log(e);
+        return res.status(400).send(validationRes);
     }
 
-    return res.status(404).send(validationRes);
+    return res.status(400).send(validationRes === "valid" ? "max depth reached": "idk");
 }
 
 
@@ -49,13 +52,13 @@ function validateCoordAndClue(xCoord, yCoord, clue, secret) {
     if (x > 100 || y > 100 || x < 0 || y < 0)
         return "coord";
 
-    if (clue.length > 69 || clue.length < 8)
+    if (clue.length > 69 || clue.length < 3)
         return "clue";
 
     if (clue.includes("*") || clue.toLowerCase().includes("insert"))
         return "clue";
 
-    if (secret.length > 24 || secret.length < 8)
+    if (secret.length > 24 || secret.length < 7)
         return "answer";
 
     return "valid";
@@ -63,7 +66,8 @@ function validateCoordAndClue(xCoord, yCoord, clue, secret) {
 
 function validateContent(req, res, next) {
     const {content, url, secret} = req.body;
-    let fullPath = req.path === '/new' ? "" : req.path.split("/")[1];
+    let fullPath = req.path === '/new' ? "/" : req.path.split("/")[1];
+    console.log("Full path: "+req.fullPath);
     req.fullPath = fullPath;
 
     try {

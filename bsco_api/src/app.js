@@ -4,6 +4,7 @@ const cors = require('cors');
 const app = express();
 const inputController = require('./middleware/input.controller');
 const dbController = require('./middleware/db.controller');
+const { hash_secret, initTables } = require('./helpers/db');
 
 //middleware
 app.use(bodyParser.json());
@@ -11,10 +12,13 @@ app.use(bodyParser.urlencoded({extended: true}));
 //configure cors correctly in prod
 app.use(cors());
 
+hash_secret("chungus", initTables);
+console.log("tables initialized");
+
 // routes
 
 // get all emojis and Content for given ES
-app.get('/:emojiString?', dbController.getPointsAndContent);
+app.get('/:emojiString?', dbController.getPointsContentAndClue);
 
 // add an emoji to given ES
 app.post('/:emojiString?', inputController.validatePoint, dbController.addPoint);
