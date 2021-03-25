@@ -1,7 +1,6 @@
 import '../styles/app.css';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import api_service from '../services/api_service';
 import axios from 'axios';
 
 const loadingMessage = <span style={{position: "absolute", fontSize: "30vh", top: "27%", left: "43%",textAlign:"center"}}>⌛</span>;

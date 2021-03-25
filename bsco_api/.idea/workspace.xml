@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afb507ce-f020-4a8b-8e3e-69640191e53e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../bsco/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bsco/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bsco/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/src/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../bsco/src/components/content.js" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/src/components/content.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bsco/src/components/create_form.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bsco/src/components/modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/src/components/modal.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../bsco/src/services/api_service.js" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/src/services/api_service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bsco/src/components/content_form.js" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/src/components/content_form.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bsco/src/components/emoji_form.js" beforeDir="false" afterPath="$PROJECT_DIR$/../bsco/src/components/emoji_form.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/db.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/middleware/db.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/db.controller.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/middleware/input.controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/middleware/input.controller.js" afterDir="false" />
     </list>
@@ -61,7 +57,7 @@
       <workItem from="1615791094700" duration="1271000" />
       <workItem from="1615832473558" duration="16552000" />
       <workItem from="1616277007638" duration="32927000" />
-      <workItem from="1616471390009" duration="12673000" />
+      <workItem from="1616471390009" duration="21634000" />
     </task>
     <servers />
   </component>

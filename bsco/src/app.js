@@ -1,91 +1,84 @@
 import './styles/app.css';
 import Content from "./components/content";
-import React, { Component, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PointModal from './components/pointModal';
 import CreateModal from './components/createModal';
 import EmojiForm from './components/emoji_form';
 import ContentForm from './components/content_form';
-import { BrowserRouter as Router, Route, Switch, useParams} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import api_service from './services/api_service';
-import axios from 'axios';
 
-const isComputer=true;
-const headerStyle = isComputer
+
+function App() {
+
+const [values, setValues] = useState({showPm: false, showCm: false, mode: 'connect', emojiList: [], 
+emojiPath: "/", isLoading: false, isComputer: window.innerWidth > 1000});
+
+const showModal = (newMode) => {
+  if (newMode === 'connect') 
+    setValues({...values, showPm: true, mode: "connect"});
+  else if (newMode === 'breate') 
+    setValues({...values, showCm: true, mode: "breate"});
+  console.log(values.mode);
+};
+
+const hideModal = () => {
+  setValues({...values, showPm: false, showCm: false});
+};
+
+const changeMode = (value) => {
+  setValues({...values, mode: value});
+}   
+
+const headerStyle = values.isComputer
 ? {fontSize: "2vw", padding: "1%"} 
 : {fontSize: "6vw", padding: "1%"};
 
-class App extends Component{
 
-constructor() {
-  super();
-  this.state = {showPm: false, showCm: false, mode: 'connect', matches: window.matchMedia("(min-width: 1224px)").matches, 
-                emojiList: [], emojiPath: "/", isLoading: false};
-
-  this.onChangeMode = this.onChangeMode.bind(this);
-  this.showModal = this.showModal.bind(this);
-  this.hideModal = this.hideModal.bind(this);
-}
-/////////////////////////////
-
-/////////////////////////
-showModal = (newMode) => {
-  if (newMode === 'connect') {
-    this.setState({ showPm: true });
-    this.setState({mode: "connect"});
+// get data
+useEffect(()=> {
+  async function fetchData(emojiPath) {
+    try {
+      let data = await api_service.get(emojiPath, { 
+        params: {parentPath: emojiPath.substring(0, emojiPath.length-2)}
+      });
+      console.log(data);
+    } catch(e) {
+      console.log(emojiPath);
+    }
   }
+  fetchData(decodeURIComponent(window.location.href.split("/").slice(-1)[0]));
+}, []);
 
-  if (newMode === 'breate') {
-    this.setState({ showCm: true });
-    this.setState({mode: "breate"});
-  }
+return (
+  <Router>
+    <div style={{ "textAlign": "center" }}>
+      <header style={headerStyle}>
+        <button className="titleChars" onClick={() => showModal("breate")}>{values.mode === "breate" ? "🅱️" : "b"}</button>
+        <button className="titleChars" onClick={() => changeMode("search")}>{values.mode === "search" ? "🔎" : "s"}</button>
+        <button className="titleChars" onClick={() => showModal("connect")}>{values.mode === "connect" ? "🔗" : "c"}</button>
+        <button className="titleChars" onClick={() => changeMode("open")}>{values.mode === "open" ? "📖" : "o"}</button>
+      </header>
+      <Switch>
+        <Route exact path="/:emojiPath?">
+          {4 === 2+2
+            ? <Content isComputer={values.isComputer} route={true} isLoading={values.isLoading} emojiList={values.emojiList} />
+            : <Content isComputer={values.isComputer} route={true} isLoading={values.isLoading} emojiList={values.emojiList} />
+          }
 
-  console.log(this.state.mode);
-};
+          <PointModal show={values.showPm} handleClose={hideModal} isComputer={values.isComputer}>
+            <p style={{ marginTop: "" }}>connect a point</p>
+            <EmojiForm isComputer={values.isComputer} />
+          </PointModal>
 
-hideModal = () => {
-  this.setState({ showPm: false });
-  this.setState({ showCm: false });
-};
-
-onChangeMode = (newMode) => {
-  this.setState({mode: newMode});
-  console.log(this.state.mode);
-};
-
-
-render() {
-
-  return (
-    <Router>
-      <div style={{"textAlign": "center"}}>
-        <header style={headerStyle}>
-          <button className="titleChars" onClick={()=>this.showModal("breate")}>{this.state.mode === "breate" ? "🅱️" : "b"}</button>
-          <button className="titleChars" onClick={()=>this.onChangeMode("search")}>{this.state.mode === "search" ? "🔎" : "s"}</button>
-          <button className="titleChars" onClick={()=>this.showModal("connect")}>{this.state.mode === "connect" ? "🔗" : "c"}</button>
-          <button className="titleChars" onClick={()=>this.onChangeMode("open")}>{this.state.mode === "open" ? "📖": "o"}</button> 
-        </header>
-          <Switch>
-            <Route exact path="/:emojiPath?">
-              { true===true
-                ? <Content isComputer={window.innerWidth > 1000} route={true} isLoading={this.isLoading} emojiList={this.emojiList}/>
-                : <Content isComputer={window.innerWidth > 1000} route={true} isLoading={this.isLoading} emojiList={this.emojiList}/>
-              }
-
-              <PointModal show={this.state.showPm} handleClose={this.hideModal} isComputer={window.innerWidth > 1000}>
-                <p style={{marginTop:""}}>connect a point</p>
-                <EmojiForm isComputer={window.innerWidth > 1000}/>
-              </PointModal>
-
-              <CreateModal show={this.state.showCm} handleClose={this.hideModal} isComputer={window.innerWidth > 1000}>
-                <p style={{marginTop:""}}>breate</p>
-                <ContentForm isComputer={window.innerWidth > 1000} clue={"big chungus is very big"}/>
-              </CreateModal>
-
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    );
-  }
+          <CreateModal show={values.showCm} handleClose={hideModal} isComputer={values.isComputer}>
+            <p style={{ marginTop: "" }}>breate</p>
+            <ContentForm isComputer={values.isComputer} clue={"big chungus is very big"} />
+          </CreateModal>
+        </Route>
+      </Switch>
+    </div>
+    </Router>
+  );
 }
 export default App;

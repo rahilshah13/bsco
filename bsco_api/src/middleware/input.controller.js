@@ -1,5 +1,5 @@
 const { EMOJI_SET, PERCENT_ENCODINGS, STR_LEN_SET } = require('../helpers/emojiSet');
-const haiku = require('haiku-detect');
+const haiku_detector = require('haiku-detect');
 const request = require("request");
 
 function validatePoint(req, res, next) {
@@ -65,25 +65,24 @@ function validateCoordAndClue(xCoord, yCoord, clue, secret) {
 }
 
 function validateContent(req, res, next) {
-    const {content, url, secret} = req.body;
-    let fullPath = req.path === '/new' ? "/" : req.path.split("/")[1];
-    console.log("Full path: "+req.fullPath);
-    req.fullPath = fullPath;
+    const {haiku, url, secret} = req.body;
+    req.body.fullPath = req.path === '/new/content' ? "/" : req.path.split("/")[2];
+    console.log("Full path: "+ req.body.fullPath);
 
     try {
         //validate url
         urlExists(url, (err, exists) => {
             // validate haiku
             if(exists) {
-                if(haiku.detect(content) === true)
-                    return next;
+                if(haiku_detector.detect(haiku) === true)
+                    return next();
             }
         });
     } catch(e) {
         console.log(e);
+        return res.status(400).send("bad haiku");
     }
 
-    return res.status(400).send("bad haiku");
 }
 
 // from url-exists npm module

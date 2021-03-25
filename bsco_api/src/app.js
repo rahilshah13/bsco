@@ -16,7 +16,6 @@ hash_secret("chungus", initTables);
 console.log("tables initialized");
 
 // routes
-
 // get all emojis and Content for given ES
 app.get('/:emojiString?', dbController.getPointsContentAndClue);
 
@@ -24,8 +23,7 @@ app.get('/:emojiString?', dbController.getPointsContentAndClue);
 app.post('/:emojiString?', inputController.validatePoint, dbController.addPoint);
 
 // add content to path
-app.post('/new', inputController.validateContent, dbController.addContent);
-app.post('/:emojiString/new', inputController.validateContent, dbController.addContent);
+app.post('/new/content/:emojiString?', inputController.validateContent, dbController.addContent);
 
 
 const PORT = process.env.PORT || 5000;

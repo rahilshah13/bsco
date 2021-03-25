@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import '../styles/form.css';
 import api_service from '../services/api_service';
-import { useEffect } from 'react';
+
 
 const clueStyle =  window.innerWidth > 1000
 ? {width:"90%", textAlign: "start", marginTop: "1.5vw", fontSize:"2vh"} 
-: {width:"90%", textAlign: "start", marginTop: "1.5vw", fontSize:"2vh"};
+: {width:"90%", textAlign: "start", marginTop: "2.5vw", fontSize:"2vh"};
 
 const textInputStyle = window.innerWidth > 1000
-? {outline:"none", border:"none", width:"33%", textAlign: "start", height:"5vh", marginTop: "1vw", fontSize:"2vh"} 
+? {outline:"none", border:"none", width:"66%", textAlign: "start", height:"5vh", marginTop: "1vw", fontSize:"2vh"} 
 : {outline:"none", border:"none", width:"66%", textAlign: "start", height:"5vh", marginTop: "3vw"};
 
 
@@ -30,16 +30,20 @@ function ContentForm({isComputer, clue}){
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    console.log(emojiPath);
+
     try {
-      let res = await api_service.post(emojiPath, values);
+      let res = !emojiPath 
+      ? await api_service.post("new/content", values) 
+      : await api_service.post(emojiPath+"/new", values);
+
       console.log(res);
       if(res.status === 200) {
-        history.push("/");
+        history.go(0);
+        alert("content added successfully!");
       }
     } catch(e) {
       console.log(e);
+      alert("error. check form or url.");
     }
   }
 
@@ -47,9 +51,10 @@ function ContentForm({isComputer, clue}){
     <form onSubmit={handleSubmit}>
       <div style={formStyle}>
         <h1>😀</h1>
-        <input type="text" name="emoji" placeholder="write a haiku" style={textInputStyle} value={values.haiku} onChange={handleChange} />
+        <input type="text" name="haiku" placeholder="write a haiku" style={textInputStyle} value={values.haiku} onChange={handleChange} />
+
         <h1>🌐</h1>
-        <input type="text" name="emoji" placeholder="add url" style={textInputStyle} value={values.url} onChange={handleChange} />
+        <input type="text" name="url" placeholder="add url" style={textInputStyle} value={values.url} onChange={handleChange} />
         
         <h1>🕵</h1>
         <p style={clueStyle}><strong>{clue}</strong></p>

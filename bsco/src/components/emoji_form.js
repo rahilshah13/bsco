@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import '../styles/form.css';
 import api_service from '../services/api_service';
-import { useEffect } from 'react';
+
 
 const labelStyle = { textAlign:"start"};
 
@@ -37,11 +37,15 @@ function EmojiForm({isComputer}){
     try {
       let res = await api_service.post(emojiPath, values);
       console.log(res);
+      console.log(res.status);
       if(res.status === 200) {
-        history.push("/");
+        alert("point added successfully!");
+        history.go(0);
       }
+
     } catch(e) {
       console.log(e);
+      alert("error. check form or url.");
     }
   }
 

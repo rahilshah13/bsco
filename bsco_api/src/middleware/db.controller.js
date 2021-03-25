@@ -7,25 +7,32 @@ async function getPointsContentAndClue(req, res) {
     // get all emojis from parent route
     const query_res = {points: "", content: "", clue: ""};
 
-    let fullPath  = req.path ==="/" ? "/" : req.path.replace("/", "");
-    let parentPath = fullPath ==='' ? null : encodeURIComponent(req.body.parentPath);
+    let fullPath = req.path === "/" ? "/" : req.path.replace("/", "");
+    let parentPath = fullPath === "/" ? null : encodeURIComponent(req.query.parentPath);
 
-    console.log(req.path);
+    if (parentPath === "")
+        parentPath = "/"
 
-    try {
-        query_res.clue = await pool.query('SELECT clue FROM points WHERE full_path=$1', [fullPath]);
+    console.log(fullPath);
+    console.log(parentPath);
 
-        if(query_res.clue.rowCount === 0) {
-            return res.status(400).send("could not GET");
-        } else {
-            query_res.points = await pool.query('SELECT emoji, location FROM points WHERE parent_path=$1', [parentPath]);
-            query_res.content = await pool.query('SELECT * FROM content WHERE full_path==$1', [fullPath]);
-            console.log(query_res);
-            return res.status(200).send(query_res);
-        }
-    } catch(err) {
-        console.log(err);
+
+    query_res.clue = await pool.query('SELECT clue FROM points WHERE full_path=$1', [fullPath])
+        .catch(e => console.log(e));
+
+    if(query_res.clue.rowCount === 0)
         return res.status(400).send("could not GET");
+    else {
+        query_res.points = await pool.query('SELECT emoji, location FROM points WHERE parent_path=$1', [parentPath])
+            .catch(e => console.log(e));
+        query_res.content = await pool.query('SELECT * FROM content WHERE full_path=$1', [fullPath])
+            .catch(e => console.log(e));
+
+        query_res.clue = query_res.clue.rows;
+        query_res.points = query_res.points.rows;
+        query_res.content = query_res.content.rows;
+
+        return res.status(200).send(query_res);
     }
 
 }
@@ -54,8 +61,6 @@ async function addPoint(req, res, next) {
         .query('SELECT * FROM points WHERE full_path=$1', [parentPath])
         .catch(e => { return res.status(400).send("could not add"); });
 
-    console.log(parent_exists);
-
     if (parent_exists.rowCount === 0)
          return res.status(400).send("no parent");
 
@@ -80,27 +85,28 @@ async function addPoint(req, res, next) {
 }
 
 async function addContent(req, res, next) {
-    const { secret, content, url, fullPath } = req.body;
+    const { haiku, url, secret, fullPath } = req.body;
 
     try {
         // validate secret
         const point = await pool.query('SELECT * FROM points WHERE full_path=$1', [fullPath]);
 
         if(await compare_secrets(secret, point.rows[0].secret)) {
-            pool.query('INSERT INTO content(full_path, URL, content) VALUES($1, $2, $3)', [fullPath, url, content])
+            pool.query('INSERT INTO content(full_path, URL, content) VALUES($1, $2, $3)', [fullPath, url, haiku])
                 .then( result => {
-                    console.log(result);
+                    //console.log(result);
                     return res.status(200).send("great success!");
                 })
                 .catch(err => {
                     console.log(err);
+                    return res.status(400).send("could not add content");
                 });
         }
     } catch(e) {
         console.log(e);
+        return res.status(400).send("could not add content");
     }
 
-    return res.status(400).send("could not add content");
 }
 
 
