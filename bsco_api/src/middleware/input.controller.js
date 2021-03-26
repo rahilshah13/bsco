@@ -65,21 +65,31 @@ function validateCoordAndClue(xCoord, yCoord, clue, secret) {
 }
 
 function validateContent(req, res, next) {
-    const {haiku, url, secret} = req.body;
+    const {haiku, secret} = req.body;
     req.body.fullPath = req.path === '/new/content' ? "/" : req.path.split("/")[2];
     console.log("Full path: "+ req.body.fullPath);
 
+    //get rid of leading and trailing whitespace
+     req.body.url =  req.body.url.trim();
+
+    if(req.body.url.substring(0,1) !== 'h')
+        req.body.url = "https://" + req.body.url
+    console.log(req.body.url);
+
     try {
         //validate url
-        urlExists(url, (err, exists) => {
+        urlExists(req.body.url, (err, exists) => {
             // validate haiku
             if(exists) {
-                if(haiku_detector.detect(haiku) === true)
+                if (haiku_detector.detect(haiku) === true)
                     return next();
+            } else {
+                console.log("bad url");
+                return res.status(400).send("bad url")
             }
         });
     } catch(e) {
-        console.log(e);
+        console.log("bad url");
         return res.status(400).send("bad haiku");
     }
 

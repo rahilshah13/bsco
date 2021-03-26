@@ -8,10 +8,6 @@ async function getPointsContentAndClue(req, res) {
     const query_res = {points: "", content: "", clue: ""};
 
     let fullPath = req.path === "/" ? "/" : req.path.replace("/", "");
-    // let parentPath = fullPath === "/" ? null : encodeURIComponent(req.query.parentPath);
-    //
-    // if (parentPath === "")
-    //     parentPath = "/"
 
     console.log(fullPath);
 
@@ -91,12 +87,12 @@ async function addContent(req, res, next) {
 
     try {
         // validate secret
+        console.log("joeNUTSMAMAMAMAM");
         const point = await pool.query('SELECT * FROM points WHERE full_path=$1', [fullPath]);
 
         if(await compare_secrets(secret, point.rows[0].secret)) {
             pool.query('INSERT INTO content(full_path, URL, content) VALUES($1, $2, $3)', [fullPath, url, haiku])
                 .then( result => {
-                    //console.log(result);
                     return res.status(200).send("great success!");
                 })
                 .catch(err => {
