@@ -55,7 +55,7 @@ useEffect(()=> {
   fetchData(decodeURIComponent(window.location.href.split("/").slice(-1)[0]));
 }, []);
 
-console.log(apiData.points);
+console.log(apiData.content);
 
 return (
   <Router>
@@ -70,7 +70,7 @@ return (
         <Route exact path="/:emojiPath?">
           {
           values.mode === 'open' || values.mode === 'breate'
-            ? <Content isComputer={values.isComputer} route={true} isLoading={values.isLoading} emojiList={apiData.points !== null ? apiData.content: []} />
+            ? <Content isComputer={values.isComputer} route={true} isLoading={values.isLoading} haikus={apiData.content !== null ? apiData.content: []} />
             : <EmojiArea isComputer={values.isComputer} route={true} isLoading={values.isLoading} emojiList={apiData.points !== null ? apiData.points: []} />
           }
 

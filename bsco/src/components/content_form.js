@@ -32,9 +32,12 @@ function ContentForm({isComputer, clue}){
     e.preventDefault();
 
     try {
-      let res = !emojiPath 
+      console.log("PLSSSS");
+      const res = !emojiPath 
       ? await api_service.post("new/content", values) 
       : await api_service.post(emojiPath+"/new", values);
+      
+      console.log(res);
 
       console.log(res);
       if(res.status === 200) {

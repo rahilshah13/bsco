@@ -1,15 +1,16 @@
 import '../styles/app.css';
 import { useParams } from 'react-router-dom';
+import { useDebugValue } from 'react';
 
 
 const loadingMessage = <span style={{position: "absolute", fontSize: "30vh", top: "27%", left: "43%",textAlign:"center"}}>⌛</span>;
 
-function Content({isComputer, isLoading, content, match}) {
+function Content({isComputer, isLoading, haikus, match}) {
    const containerStyle = isComputer 
-   ? {backgroundColor:"burlywood", padding:"1%", height: "75vh"}
-   : {backgroundColor:"burlywood", padding:"1%", height: "75vh"};
+   ? { padding:"1%", height: "75vh"}
+   : { padding:"1%", height: "75vh"};
 
-   const linkContainer = isComputer
+   const haikuContainer = isComputer
    ? {position:"absolute", bottom: "30%", left: "15%"}
    : {position:"absolute", bottom: "30%", left: "25%"};
 
@@ -19,7 +20,14 @@ function Content({isComputer, isLoading, content, match}) {
     isLoading
     ? loadingMessage
     :<div style={containerStyle}>
-        <a style={linkContainer} href="https://www.youtube.com/embed/tgbNymZ7vqY">{emojiPath}</a>
+        { 
+        haikus.map((value, index) => {
+          const style = {left:"50%", right:"45%"};
+          return <a key={value.id} style={style} href={value.url}>
+            {value.content}
+          </a> 
+        })
+        }
     </div>
   );
 }
