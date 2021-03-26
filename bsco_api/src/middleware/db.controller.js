@@ -8,13 +8,12 @@ async function getPointsContentAndClue(req, res) {
     const query_res = {points: "", content: "", clue: ""};
 
     let fullPath = req.path === "/" ? "/" : req.path.replace("/", "");
-    let parentPath = fullPath === "/" ? null : encodeURIComponent(req.query.parentPath);
-
-    if (parentPath === "")
-        parentPath = "/"
+    // let parentPath = fullPath === "/" ? null : encodeURIComponent(req.query.parentPath);
+    //
+    // if (parentPath === "")
+    //     parentPath = "/"
 
     console.log(fullPath);
-    console.log(parentPath);
 
 
     query_res.clue = await pool.query('SELECT clue FROM points WHERE full_path=$1', [fullPath])
@@ -23,11 +22,14 @@ async function getPointsContentAndClue(req, res) {
     if(query_res.clue.rowCount === 0)
         return res.status(400).send("could not GET");
     else {
-        query_res.points = await pool.query('SELECT emoji, location FROM points WHERE parent_path=$1', [parentPath])
+        console.log("DEEZ");
+
+        query_res.points = await pool.query('SELECT full_path, emoji, location FROM points WHERE parent_path=$1', [fullPath])
             .catch(e => console.log(e));
         query_res.content = await pool.query('SELECT * FROM content WHERE full_path=$1', [fullPath])
             .catch(e => console.log(e));
 
+        console.log(req.points);
         query_res.clue = query_res.clue.rows;
         query_res.points = query_res.points.rows;
         query_res.content = query_res.content.rows;

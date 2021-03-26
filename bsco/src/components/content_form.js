@@ -5,7 +5,7 @@ import api_service from '../services/api_service';
 
 
 const clueStyle =  window.innerWidth > 1000
-? {width:"90%", textAlign: "start", marginTop: "1.5vw", fontSize:"2vh"} 
+? {width:"90%", textAlign: "start", marginTop: "3.5vh", fontSize:"2vh"} 
 : {width:"90%", textAlign: "start", marginTop: "2.5vw", fontSize:"2vh"};
 
 const textInputStyle = window.innerWidth > 1000

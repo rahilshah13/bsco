@@ -7,12 +7,15 @@ import EmojiForm from './components/emoji_form';
 import ContentForm from './components/content_form';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import api_service from './services/api_service';
+import EmojiArea from './components/emojiArea';
 
 
 function App() {
 
-const [values, setValues] = useState({showPm: false, showCm: false, mode: 'connect', emojiList: [], 
+const [values, setValues] = useState({showPm: false, showCm: false, mode: 'connect', 
 emojiPath: "/", isLoading: false, isComputer: window.innerWidth > 1000});
+
+const [apiData, setApiData] = useState({clue: null, points: null, content: null});
 
 const showModal = (newMode) => {
   if (newMode === 'connect') 
@@ -39,16 +42,20 @@ const headerStyle = values.isComputer
 useEffect(()=> {
   async function fetchData(emojiPath) {
     try {
-      let data = await api_service.get(emojiPath, { 
+      let res = await api_service.get(emojiPath, { 
         params: {parentPath: emojiPath.substring(0, emojiPath.length-2)}
       });
-      console.log(data);
+      setApiData({clue: res.data.clue, points: res.data.points, content: res.data.content});
+      console.log(res.data);
+
     } catch(e) {
-      console.log(emojiPath);
+      console.log(values.emojiPath);
     }
   }
   fetchData(decodeURIComponent(window.location.href.split("/").slice(-1)[0]));
 }, []);
+
+console.log(apiData.points);
 
 return (
   <Router>
@@ -61,9 +68,10 @@ return (
       </header>
       <Switch>
         <Route exact path="/:emojiPath?">
-          {4 === 2+2
-            ? <Content isComputer={values.isComputer} route={true} isLoading={values.isLoading} emojiList={values.emojiList} />
-            : <Content isComputer={values.isComputer} route={true} isLoading={values.isLoading} emojiList={values.emojiList} />
+          {
+          values.mode === 'open' || values.mode === 'breate'
+            ? <Content isComputer={values.isComputer} route={true} isLoading={values.isLoading} emojiList={apiData.points !== null ? apiData.content: []} />
+            : <EmojiArea isComputer={values.isComputer} route={true} isLoading={values.isLoading} emojiList={apiData.points !== null ? apiData.points: []} />
           }
 
           <PointModal show={values.showPm} handleClose={hideModal} isComputer={values.isComputer}>
@@ -73,7 +81,7 @@ return (
 
           <CreateModal show={values.showCm} handleClose={hideModal} isComputer={values.isComputer}>
             <p style={{ marginTop: "" }}>breate</p>
-            <ContentForm isComputer={values.isComputer} clue={"big chungus is very big"} />
+            <ContentForm isComputer={values.isComputer} clue={apiData.clue !== null ? apiData.clue[0].clue : "deeznuts"} />
           </CreateModal>
         </Route>
       </Switch>

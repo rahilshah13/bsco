@@ -11,8 +11,8 @@ const textInputStyle = window.innerWidth > 1000
 : {outline:"none", border:"none", width:"66%", textAlign: "start", height:"5vh", marginTop: "3vw"};
 
 const coordInputStyle = window.innerWidth > 1000
-? {width: "3vw", height:"5vh", outline: "none", border:"none", marginTop: "1vw"}
-: {width: "10vw", height:"5vh", outline: "none", border:"none", marginTop: "1vw"};
+? {width: "3vw", height:"5vh", outline: "none", border:"none", marginTop: "2vh"}
+: {width: "10vw", height:"5vh", outline: "none", border:"none", marginTop: "1vh"};
 
 const formStyle = window.innerWidth > 1000
 ? {display: "grid", gridTemplateColumns: "3fr 6fr", margin: "2.5vw"}
