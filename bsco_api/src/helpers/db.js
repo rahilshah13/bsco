@@ -2,10 +2,10 @@ const Pool = require('pg').Pool;
 const bcrypt = require('bcrypt');
 
 const pool = new Pool({
-    user: 'me',
-    host: 'localhost',
-    database: 'bsco_api',
-    password: 'password',
+    user: process.env.POSTGRES_USER || 'me',
+    host: process.env.DB_HOST ||'localhost',
+    database: process.env.POSTGRES_DB || 'bsco_api',
+    password: process.env.POSTGRES_PASSWORD || 'password',
     port: 5432
 });
 
@@ -31,10 +31,14 @@ const create_ct = `CREATE TABLE IF NOT EXISTS content(
 const test_haiku = `INSERT INTO content(full_path, url, content) VALUES($1,$2,$3)`;
 
 async function initTables(hashed_secret) {
-    await pool.query(create_pt).catch(err => console.log(e));
-    //await pool.query(add_root, ["/", "big", hashed_secret]).catch(e => console.log(e));
-    await pool.query(create_ct).catch(e => console.log(e));
-    //await pool.query(test_haiku, ["/", "www.google.com", "A world of dew and within every dewdrop A world of struggle"]).catch(e => console.log(e));
+    await pool.query(create_pt)
+        .catch(err => console.log("table already exists"));
+    await pool.query(add_root, ["/", "big", hashed_secret])
+        .catch(e => console.log("root clue added"));
+    await pool.query(create_ct)
+        .catch(e => console.log(e));
+    await pool.query(test_haiku, ["/", "http://www.google.com", "A world of dew and within every dewdrop A world of struggle"])
+        .catch(e => console.log("default haiku added"));
 }
 
 function hash_secret(secret, next) {

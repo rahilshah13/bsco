@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const { pool, hash_secret } = require('../helpers/db');
+const redisClient = require('../helpers/cache');
 
 const INSERT_QS = `INSERT INTO points(full_path, parent_path, emoji, location, clue, secret) VALUES($1, $2, $3, $4, $5, $6)`;
 
