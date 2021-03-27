@@ -4,21 +4,17 @@ import '../styles/form.css';
 import api_service from '../services/api_service';
 
 
-const clueStyle =  window.innerWidth > 1000
-? {width:"90%", textAlign: "start", marginTop: "3.5vh", fontSize:"2vh"} 
-: {width:"90%", textAlign: "start", marginTop: "2.5vw", fontSize:"2vh"};
+const isComp = window.innerWidth > 1000;
 
-const textInputStyle = window.innerWidth > 1000
-? {outline:"none", border:"none", width:"66%", textAlign: "start", height:"5vh", marginTop: "1vw", fontSize:"2vh"} 
-: {outline:"none", border:"none", width:"66%", textAlign: "start", height:"5vh", marginTop: "3vw"};
+const clueStyle =  {width:"90%", textAlign: "start", marginTop: isComp ? "4vh" : "5vw", fontSize: isComp ? "2vh" : "4.5vw"} 
 
+const textInputStyle = {outline:"none", border:"none", width:"90%", textAlign: "start", height: isComp ? "5vh" : "5vh", 
+                        marginTop:  isComp ? "1vw" : "3vw", fontSize:"2vh"}; 
 
-const formStyle = window.innerWidth > 1000
-? {display: "grid", gridTemplateColumns: "3fr 6fr", margin: "2.5vw"}
-: {display: "grid", gridTemplateColumns: "3fr 6fr", margin: "6vw"};
+const formStyle = {display: "grid", gridTemplateColumns: "3fr 6fr", margin: isComp ? "2.5vw" : "5vw"};
 
 
-function ContentForm({isComputer, clue}){
+function ContentForm({isComp, clue}){
 
   const [values, setValues] = useState({haiku: "", url: "", clue: "", secret: ""});
   const {emojiPath} = useParams();
@@ -62,10 +58,10 @@ function ContentForm({isComputer, clue}){
         <h1>🕵</h1>
         <p style={clueStyle}><strong>{clue}</strong></p>
         
-        <h1 style={{marginBottom:".1vh"}}>㊙</h1>
+        <h1 style={{}}>㊙</h1>
         <input type="text" name="secret" placeholder="secret answer" style={textInputStyle} value={values.secret} onChange={handleChange} />
       </div>    
-      <div style={isComputer ? {marginBottom: "2.5vw"} : {marginBottom: "6vw"}}>
+      <div style={{marginBottom: isComp ? "2.5vw" : "6vw"}}>
         <button style={{backgroundColor:"transparent", outline:"none", border: "none", fontSize:"4vh"}} onClick={handleSubmit}>🆗</button>
       </div>
     </form>

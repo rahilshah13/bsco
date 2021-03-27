@@ -1,16 +1,18 @@
 import '../styles/app.css';
-import { useParams, Link } from 'react-router-dom';
-import { useEffect } from 'react';
+
 
 const loadingMessage = <span style={{position: "absolute", fontSize: "30vh", top: "27%", left: "43%",textAlign:"center"}}>⌛</span>;
+const colors = ["#fff599", "white", "#d6fbff", "#ffd6f1", "#dcd6ff", "#d6ffdb", "#dedede"];
+const cn = Math.floor(Math.random() * 7); 
 
-function EmojiArea({isComputer, isLoading, emojiList, match}) {
-   const containerStyle = isComputer 
-   ? {backgroundColor:"AliceBlue", padding:"1%", height: "75vh", marginLeft: "5%", marginRight: "5%", marginTop: "1%"}
-   : {backgroundColor:"AliceBlue", padding:"1%", height: "75vh"};
 
-   const {emojiPath} = window.location.pathname;
-   console.log(emojiPath);
+function EmojiArea({isComp, isLoading, emojiList, match}) {
+    
+  const containerStyle = {backgroundColor: colors[cn], padding:"1%", height: "75vh", marginLeft: "5%", marginRight: "5%", marginTop: isComp ? "1%" : "2%"};
+  const {emojiPath} = window.location.pathname;
+
+  console.log(emojiPath);
+  //TODO: first haiku getting lost
 
   return (
     isLoading

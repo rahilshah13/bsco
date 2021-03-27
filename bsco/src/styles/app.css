@@ -8,24 +8,6 @@
   padding: 1%;
 }
 
-.search-container{
-  display: grid;
-  background-color:darkmagenta;
-  grid-template-columns: 9fr 1fr 10fr 10fr;
-}
-
-.hashtag{
-  background-color: coral;
-  text-align: end;
-  grid-column: 2;
-  font-size: 8vw;
-}
-
-.search-bar{
-  background-color: crimson;
-  grid-column: 3;
-  text-align: center;
-}
 
 .content-container{
   background-color:burlywood;
@@ -43,6 +25,7 @@
 
 .titleChars{
   font-size: 4vh;
+  padding-top: 1vh;
   padding-left: 3vh;
   background: transparent;
   outline: none;
@@ -57,3 +40,4 @@
   outline: none;
   border: none;
 }
+
