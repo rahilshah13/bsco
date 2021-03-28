@@ -1,5 +1,4 @@
 import '../styles/app.css';
-import { useParams } from 'react-router-dom';
 const haiku_formatter = require('haiku-detect');
 
 const loadingMessage = <span style={{position: "absolute", fontSize: "30vh", top: "27%", left: "43%",textAlign:"center"}}>⌛</span>;
@@ -12,7 +11,6 @@ function Content({isComputer, isLoading, haikus, match}) {
 
   const haikuLines = {marginBottom: "1%"};
 
-  const {emojiPath} = useParams();
 
   return (
     isLoading

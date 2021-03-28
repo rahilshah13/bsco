@@ -13,7 +13,7 @@ import EmojiArea from './components/emojiArea';
 function App() {
 
 const [values, setValues] = useState({showPm: false, showCm: false, mode: 'search', 
-emojiPath: "/", isLoading: false, isComputer: window.innerWidth > 1000, modalMode: ""});
+isLoading: false, isComputer: window.innerWidth > 1000, modalMode: ""});
 
 const [apiData, setApiData] = useState({clue: null, points: null, content: null});
 
@@ -47,7 +47,7 @@ useEffect(()=> {
       console.log(res.data);
 
     } catch(e) {
-      console.log(values.emojiPath);
+      console.log(e);
     }
   }
   fetchData(decodeURIComponent(window.location.href.split("/").slice(-1)[0]));
