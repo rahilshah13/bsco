@@ -1,15 +1,9 @@
 version: "3.8"
 services:
-  proxy:
-    image: traefik:2.4
-    command: --providers.docker.swarmMode --api.insecure
-    ports:
-      - 80:80
-      - 8080:8080
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
   app:
     image: rahilshah/bsco:latest
+    ports:
+      - 5000:5000
     networks:
       - proxy
     environment:
@@ -24,11 +18,15 @@ services:
         traefik.http.services.app.loadbalancer.server.port: 5000
   cache:
     image: redis
+    ports:
+      - 6379:6379
     networks:
       - proxy
   db:
     image: postgres
     restart: always
+    ports:
+      - 5432:5432
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     networks:
@@ -38,5 +36,5 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: bsco
 networks:
-  default:
-    name: proxy
+  proxy:
+    external: true

@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afb507ce-f020-4a8b-8e3e-69640191e53e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/docker-stack-proxy.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-stack.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-stack.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +56,8 @@
       <workItem from="1616471390009" duration="21634000" />
       <workItem from="1616726964971" duration="5278000" />
       <workItem from="1616782533495" duration="15172000" />
-      <workItem from="1616974410115" duration="305000" />
+      <workItem from="1616974410115" duration="1225000" />
+      <workItem from="1616984679279" duration="1524000" />
     </task>
     <servers />
   </component>
