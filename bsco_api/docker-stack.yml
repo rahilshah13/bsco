@@ -8,7 +8,7 @@ services:
       - proxy
     environment:
       DB_HOST: db
-      REDIS_HOST: redis
+      REDIS_HOST: cache
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: bsco
@@ -22,15 +22,20 @@ services:
       - 6379:6379
     networks:
       - proxy
+    deploy:
+      labels:
+        - "traefik.enable=false"
   db:
     image: postgres
-    restart: always
     ports:
       - 5432:5432
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     networks:
       - proxy
+    deploy:
+      labels:
+        - "traefik.enable=false"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
