@@ -1,6 +1,7 @@
 const { EMOJI_SET, PERCENT_ENCODINGS, STR_LEN_SET } = require('../helpers/emojiSet');
 const haiku_detector = require('haiku-detect');
-const request = require("request");
+var validUrl = require('valid-url');
+
 
 function validatePoint(req, res, next) {
 
@@ -65,7 +66,7 @@ function validateCoordAndClue(xCoord, yCoord, clue, secret) {
 }
 
 function validateContent(req, res, next) {
-    const {haiku, secret} = req.body;
+    const { haiku } = req.body;
     req.body.fullPath = req.path === '/new/content' ? "/" : req.path.split("/")[2];
     console.log("Full path: "+ req.body.fullPath);
 
@@ -73,34 +74,25 @@ function validateContent(req, res, next) {
      req.body.url =  req.body.url.trim();
 
     if(req.body.url.substring(0,1) !== 'h')
-        req.body.url = "https://" + req.body.url
+        req.body.url = "https://" + req.body.url;
     console.log(req.body.url);
 
     try {
         //validate url
-        urlExists(req.body.url, (err, exists) => {
-            // validate haiku
-            if(exists) {
-                if (haiku_detector.detect(haiku) === true)
-                    return next();
-            } else {
-                console.log("bad url");
-                return res.status(400).send("bad url")
-            }
-        });
+        if(validUrl.isUri(req.body.url)) {
+            if (haiku_detector.detect(haiku) === true)
+                return next();
+        }
+        else {
+            console.log("bad url");
+            return res.status(400).send("bad url")
+        }
+
     } catch(e) {
         console.log("bad url");
         return res.status(400).send("bad haiku");
     }
 
-}
-
-// from url-exists npm module
-function urlExists(url, cb) {
-     request({ url: url, method: 'HEAD' }, function(err, res) {
-        if (err) return cb(null, false);
-        cb(null, /4\d\d/.test(res.statusCode) === false);
-    });
 }
 
 module.exports = {
