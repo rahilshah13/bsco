@@ -14,7 +14,7 @@ services:
       POSTGRES_DB: bsco
     deploy:
       labels:
-        traefik.http.routers.app.rule: Host(`app.localhost`)
+        traefik.http.routers.app.rule: Host(`localhost`)
         traefik.http.services.app.loadbalancer.server.port: 5000
   cache:
     image: redis
