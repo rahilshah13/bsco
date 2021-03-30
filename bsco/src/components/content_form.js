@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import '../styles/form.css';
 import api_service from '../services/api_service';
+import ReactTooltip from "react-tooltip";
 
 
 const isComp = window.innerWidth > 1000;
 
-const clueStyle =  {width:"90%", textAlign: "start", marginTop: isComp ? "4vh" : "5vw", fontSize: isComp ? "2vh" : "4.5vw"} 
+const clueStyle =  {width:"90%", textAlign: "start", marginTop: isComp ? "3vh" : "5vw", fontSize: isComp ? "2vh" : "4.5vw"} 
 
-const textInputStyle = {outline:"none", border:"none", width:"90%", textAlign: "start", height: isComp ? "5vh" : "5vh", 
+const textInputStyle = {outline:"none", border:"none", width:"90%", textAlign: "start", height: isComp ? "4vh" : "5vh", 
                         marginTop:  isComp ? "1vw" : "3vw", fontSize:"2vh"}; 
 
 const formStyle = {display: "grid", gridTemplateColumns: "3fr 6fr", margin: isComp ? "2.5vw" : "5vw"};
@@ -16,7 +17,7 @@ const formStyle = {display: "grid", gridTemplateColumns: "3fr 6fr", margin: isCo
 
 function ContentForm({isComp, clue}){
 
-  const [values, setValues] = useState({haiku: "", url: "", clue: "", secret: ""});
+  const [values, setValues] = useState({content: "", url: "", clue: "", secret: ""});
   const {emojiPath} = useParams();
   const history = useHistory();
 
@@ -28,14 +29,12 @@ function ContentForm({isComp, clue}){
     e.preventDefault();
 
     try {
-      console.log("PLSSSS");
       const res = !emojiPath 
       ? await api_service.post("new/content", values) 
-      : await api_service.post(emojiPath+"/new", values);
+      : await api_service.post("new/content/"+emojiPath, values);
       
       console.log(res);
-
-      console.log(res);
+      
       if(res.status === 200) {
         history.go(0);
         alert("content added successfully!");
@@ -49,15 +48,16 @@ function ContentForm({isComp, clue}){
   return (
     <form onSubmit={handleSubmit}>
       <div style={formStyle}>
-        <h1>😀</h1>
-        <input type="text" name="haiku" placeholder="write a haiku" style={textInputStyle} value={values.haiku} onChange={handleChange} />
+        <h1>✍</h1>
+        <textarea type="text" name="content" placeholder="say something" style={textInputStyle} value={values.content} onChange={handleChange} />
 
         <h1>🌐</h1>
         <input type="text" name="url" placeholder="add url" style={textInputStyle} value={values.url} onChange={handleChange} />
         
-        <h1>🕵</h1>
+        <h1 data-tip data-for="myClueTip">🕵</h1>
+        <ReactTooltip id="myClueTip">my clue</ReactTooltip>
         <p style={clueStyle}><strong>{clue}</strong></p>
-        
+
         <h1 style={{}}>㊙</h1>
         <input type="text" name="secret" placeholder="secret answer" style={textInputStyle} value={values.secret} onChange={handleChange} />
       </div>    

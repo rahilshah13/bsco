@@ -33,8 +33,6 @@ const changeMode = (value) => {
   setValues({...values, mode: value});
 }   
 
-const headerStyle = {fontSize: values.isComputer ? "2vw" : "6vw", padding: "1%"} 
-
 
 // get data
 useEffect(()=> {
@@ -58,7 +56,7 @@ console.log(apiData.content);
 return (
   <Router>
     <div style={{ "textAlign": "center" }}>
-      <header style={headerStyle}>
+      <header style={{padding: "1%"}}>
         <button className="titleChars" onClick={() => showModal("breate")}>{values.modalMode === "breate" ? "🅱️" : "b"}</button>
         <button className="titleChars" onClick={() => changeMode("search")}>{values.mode === "search" ? "🔎" : "s"}</button>
         <button className="titleChars" onClick={() => showModal("connect")}>{values.modalMode === "connect" ? "🔗" : "c"}</button>
@@ -68,13 +66,13 @@ return (
         <Route exact path="/:emojiPath?">
           {
           values.mode === 'open' 
-            ? <Content isComp={values.isComputer} route={true} isLoading={values.isLoading} haikus={apiData.content !== null ? apiData.content: []} />
+            ? <Content isComp={values.isComputer} route={true} isLoading={values.isLoading} contentList={apiData.content !== null ? apiData.content: []} />
             : <EmojiArea isComp={values.isComputer} route={true} isLoading={values.isLoading} emojiList={apiData.points !== null ? apiData.points: []} />
           }
 
           <PointModal show={values.showPm} handleClose={hideModal} isComp={values.isComputer}>
             <p style={{ marginTop: "" }}>connect a point</p>
-            <EmojiForm isComp={values.isComputer} />
+            <EmojiForm isComp={values.isComputer} clue={apiData.clue !== null ? apiData.clue[0].clue : "deeznuts"} />
           </PointModal>
 
           <CreateModal show={values.showCm} handleClose={hideModal} isComp={values.isComputer}>

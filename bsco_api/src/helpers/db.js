@@ -25,10 +25,10 @@ const create_ct = `CREATE TABLE IF NOT EXISTS content(
     ID SERIAL PRIMARY KEY,
     full_path TEXT NOT NULL,
     url TEXT UNIQUE NOT NULL,
-    content char(250) UNIQUE NOT NULL
+    content TEXT NOT NULL
 )`;
 
-const test_haiku = `INSERT INTO content(full_path, url, content) VALUES($1,$2,$3)`;
+const test_content = `INSERT INTO content(full_path, url, content) VALUES($1,$2,$3)`;
 
 async function initTables(hashed_secret) {
     await pool.query(create_pt)
@@ -37,8 +37,8 @@ async function initTables(hashed_secret) {
         .catch(e => console.log("root clue added"));
     await pool.query(create_ct)
         .catch(e => console.log(e));
-    await pool.query(test_haiku, ["/", "http://www.google.com", "A world of dew and within every dewdrop A world of struggle"])
-        .catch(e => console.log("default haiku added"));
+    await pool.query(test_content, ["/", "http://www.google.com", "A world of dew and within every dewdrop A world of struggle"])
+        .catch(e => console.log("default content added"));
 }
 
 function hash_secret(secret, next) {

@@ -53,34 +53,33 @@ function validateCoordAndClue(xCoord, yCoord, clue, secret) {
     if (x > 100 || y > 100 || x < 0 || y < 0)
         return "coord";
 
-    if (clue.length > 69 || clue.length < 3)
+    if (clue.length > 21 || clue.length < 7)
         return "clue";
 
     if (clue.includes("*") || clue.toLowerCase().includes("insert"))
         return "clue";
 
-    if (secret.length > 24 || secret.length < 7)
+    if (secret.length > 21 || secret.length < 7)
         return "answer";
 
     return "valid";
 }
 
 function validateContent(req, res, next) {
-    const { haiku } = req.body;
+    const { content } = req.body;
     req.body.fullPath = req.path === '/new/content' ? "/" : req.path.split("/")[2];
     console.log("Full path: "+ req.body.fullPath);
 
     //get rid of leading and trailing whitespace
      req.body.url =  req.body.url.trim();
-
+    console.log(content);
     if(req.body.url.substring(0,1) !== 'h')
         req.body.url = "https://" + req.body.url;
-    console.log(req.body.url);
 
     try {
         //validate url
         if(validUrl.isUri(req.body.url)) {
-            if (haiku_detector.detect(haiku) === true)
+            if (content.length < 140)
                 return next();
         }
         else {

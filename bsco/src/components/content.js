@@ -1,15 +1,12 @@
 import '../styles/app.css';
-const haiku_formatter = require('haiku-detect');
 
 const loadingMessage = <span style={{position: "absolute", fontSize: "30vh", top: "27%", left: "43%",textAlign:"center"}}>⌛</span>;
-const colors = ["#fff599", "white", "#d6fbff", "#ffd6f1", "#dcd6ff", "#d6ffdb", "#dedede"];
+const colors = ["#fff599", "#d6fbff", "#ffd6f1", "#dcd6ff", "#d6ffdb", "#dedede"];
 
-function Content({isComputer, isLoading, haikus, match}) {
+function Content({isComputer, isLoading, contentList, match}) {
    const containerStyle = isComputer 
-   ? { padding:"1%", height: "75vh"}
-   : { padding:"1%", height: "75vh"};
-
-  const haikuLines = {marginBottom: "1%"};
+   ? { padding:"1%", height: "75vh", marginLeft: "20%", marginRight: "20%"}
+   : { padding:"1%", height: "75vh", marginLeft: "10%", marginRight: "10%"};
 
 
   return (
@@ -17,19 +14,16 @@ function Content({isComputer, isLoading, haikus, match}) {
     ? loadingMessage
     :<div style={containerStyle}>
         { 
-        haikus.map((value, index) => {
-          const haikuContainer = isComputer
-          ? {backgroundColor: colors[index%7], marginBottom: "5vh", left: "33%", right: "33%", fontSize: "3vh"}
-          : {backgroundColor: colors[index%7], marginBottom: "2vh", fontSize: "3vh"};
+        contentList.map((value, index) => {
+          const contentContainer = isComputer
+          ? {marginBottom: "5vh", left: "33%", right: "33%", fontSize: "3vh"}
+          : {marginBottom: "2vh", left: "33%", right: "33%", fontSize: "3vh"};
 
           const style = {textDecoration: "none", backgroundColor: "green"};
-          const hl = haiku_formatter.format(value.content);
           return (
-            <div style={haikuContainer}>
+            <div style={contentContainer}>
               <a key={value.id} style={style} href={value.url}>
-                <p style={haikuLines}>{hl[0]}</p>
-                <p style={haikuLines}>{hl[1]}</p>
-                <p style={haikuLines}>{hl[2]}</p>
+                <p style={{}}>{value.content}</p>
               </a> 
             </div>
         )})

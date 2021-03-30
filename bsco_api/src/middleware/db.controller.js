@@ -92,14 +92,15 @@ async function addPoint(req, res, next) {
 }
 
 async function addContent(req, res, next) {
-    const { haiku, url, secret, fullPath } = req.body;
+    const { content, url, secret, fullPath } = req.body;
     console.log("WHAT IT DO");
+
     try {
         // validate secret
         const point = await pool.query('SELECT * FROM points WHERE full_path=$1', [fullPath]);
 
         if(await compare_secrets(secret, point.rows[0].secret)) {
-            pool.query('INSERT INTO content(full_path, URL, content) VALUES($1, $2, $3)', [fullPath, url, haiku])
+            pool.query('INSERT INTO content(full_path, URL, content) VALUES($1, $2, $3)', [fullPath, url, content])
                 .then( async (result) => {
                     // delete cached data
                     await delAsync(fullPath);
