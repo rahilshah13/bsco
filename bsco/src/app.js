@@ -42,7 +42,7 @@ useEffect(()=> {
         params: {parentPath: emojiPath.substring(0, emojiPath.length-2)}
       });
       setApiData({clue: res.data.clue, points: res.data.points, content: res.data.content});
-      console.log(res.data);
+      //console.log(res.data);
 
     } catch(e) {
       console.log(e);
@@ -51,7 +51,7 @@ useEffect(()=> {
   fetchData(decodeURIComponent(window.location.href.split("/").slice(-1)[0]));
 }, []);
 
-console.log(apiData.content);
+//console.log(apiData.content);
 
 return (
   <Router>

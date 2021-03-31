@@ -8,6 +8,22 @@ services:
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+  cache:
+    image: redis
+    deploy:
+      labels:
+        - "traefik.enable=false"
+  db:
+    image: postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    deploy:
+      labels:
+        - "traefik.enable=false"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bsco
 networks:
   default:
     name: proxy

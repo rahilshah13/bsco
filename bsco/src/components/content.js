@@ -1,7 +1,6 @@
 import '../styles/app.css';
 
 const loadingMessage = <span style={{position: "absolute", fontSize: "30vh", top: "27%", left: "43%",textAlign:"center"}}>⌛</span>;
-const colors = ["#fff599", "#d6fbff", "#ffd6f1", "#dcd6ff", "#d6ffdb", "#dedede"];
 
 function Content({isComputer, isLoading, contentList, match}) {
    const containerStyle = isComputer 
@@ -23,7 +22,7 @@ function Content({isComputer, isLoading, contentList, match}) {
           return (
             <div style={contentContainer}>
               <a key={value.id} style={style} href={value.url}>
-                <p style={{}}>{value.content}</p>
+                <p style={{color: "#000000"}}>{value.content}</p>
               </a> 
             </div>
         )})

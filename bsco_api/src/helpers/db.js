@@ -33,7 +33,7 @@ const test_content = `INSERT INTO content(full_path, url, content) VALUES($1,$2,
 async function initTables(hashed_secret) {
     await pool.query(create_pt)
         .catch(err => console.log("table already exists"));
-    await pool.query(add_root, ["/", "big", hashed_secret])
+    await pool.query(add_root, ["/", "what's my finsta?", hashed_secret])
         .catch(e => console.log("root clue added"));
     await pool.query(create_ct)
         .catch(e => console.log(e));

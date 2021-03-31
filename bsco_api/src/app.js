@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //configure cors correctly in prod
 app.use(cors());
 
-hash_secret("chungus", initTables);
+hash_secret("yung___boat", initTables);
 console.log("tables initialized");
 
 // routes
