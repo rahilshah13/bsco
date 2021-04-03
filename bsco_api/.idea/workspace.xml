@@ -2,25 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afb507ce-f020-4a8b-8e3e-69640191e53e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/data/nginx/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-stack-proxy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-stack-proxy.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-stack.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-stack.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16385" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16385" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16387" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16387" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16396" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16396" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16398" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16398" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16405" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16405" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/16384/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/pg_internal.init" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/global/pg_control" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/global/pg_control" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/global/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/global/pg_internal.init" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/pg_stat_tmp/db_0.stat" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/pg_stat_tmp/db_0.stat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/pg_stat_tmp/db_16384.stat" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/pg_stat_tmp/db_16384.stat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/pg_stat_tmp/global.stat" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/pg_stat_tmp/global.stat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/pg_wal/000000010000000000000001" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/pg_wal/000000010000000000000001" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/pg_xact/0000" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/pg_xact/0000" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/postmaster.pid" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/postmaster.pid" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/helpers/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/db.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +60,7 @@
       <workItem from="1616974410115" duration="1225000" />
       <workItem from="1616984679279" duration="11788000" />
       <workItem from="1617057588937" duration="12160000" />
-      <workItem from="1617404933901" duration="9553000" />
+      <workItem from="1617404933901" duration="10396000" />
     </task>
     <servers />
   </component>
