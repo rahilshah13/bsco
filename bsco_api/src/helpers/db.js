@@ -37,7 +37,7 @@ async function initTables(hashed_secret) {
         .catch(e => console.log("root clue added"));
     await pool.query(create_ct)
         .catch(e => console.log(e));
-    await pool.query(test_content, ["/", "http://www.google.com", "A world of dew and within every dewdrop A world of struggle"])
+    await pool.query(test_content, ["/", "http://www.google.com", "test"])
         .catch(e => console.log("default content added"));
 }
 

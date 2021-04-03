@@ -4,7 +4,7 @@ services:
     image: traefik:2.4
     command: --providers.docker.swarmMode --api.insecure
     ports:
-      - 80:80
+      - 443:443
       - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -24,6 +24,12 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: bsco
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
 networks:
   default:
     name: proxy

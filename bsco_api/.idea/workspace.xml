@@ -2,30 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="afb507ce-f020-4a8b-8e3e-69640191e53e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/data/nginx/nginx.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-stack-proxy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-stack-proxy.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-stack.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-stack.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/13395/pg_internal.init" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/16384/1249" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/1249" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16385" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16385" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16387" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16387" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16394" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16394" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16396" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16396" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16398" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16398" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16405" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16405" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16407" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16407" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/base/16384/16409" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/16409" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/base/16384/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/base/16384/pg_internal.init" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/global/pg_control" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/global/pg_control" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/global/pg_internal.init" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/global/pg_internal.init" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/pg_stat_tmp/db_0.stat" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/pg_stat_tmp/db_0.stat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pgdata/pg_stat_tmp/db_13395.stat" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/pg_stat_tmp/db_16384.stat" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/pg_stat_tmp/db_16384.stat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/pg_stat_tmp/global.stat" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/pg_stat_tmp/global.stat" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/pg_wal/000000010000000000000001" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/pg_wal/000000010000000000000001" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/pg_xact/0000" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/pg_xact/0000" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pgdata/postmaster.pid" beforeDir="false" afterPath="$PROJECT_DIR$/pgdata/postmaster.pid" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/helpers/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helpers/db.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +31,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
+        <option value="tsconfig.json" />
       </list>
     </option>
   </component>
@@ -58,8 +53,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="Z:\AndroidStudioProjects\bsco\bsco_api\src" />
+      <recent name="Z:\AndroidStudioProjects\bsco\bsco_api\data" />
       <recent name="Z:\AndroidStudioProjects\bsco\bsco_api" />
+      <recent name="Z:\AndroidStudioProjects\bsco\bsco_api\src" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -79,14 +75,23 @@
       <workItem from="1616782533495" duration="15172000" />
       <workItem from="1616974410115" duration="1225000" />
       <workItem from="1616984679279" duration="11788000" />
-      <workItem from="1617057588937" duration="9415000" />
+      <workItem from="1617057588937" duration="12160000" />
+      <workItem from="1617404933901" duration="9553000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.conf" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="2590" y="270" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1617490117458">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="536" y="214" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/1920.0.1920.1040@0.0.1536.824" timestamp="1617483850060" />
+    <state x="2590" y="270" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824/1920.0.1920.1040@1920.0.1920.1040" timestamp="1617490117458" />
     <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1616738963505">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
