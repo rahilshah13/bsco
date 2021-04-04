@@ -17,13 +17,13 @@ console.log("tables initialized");
 
 // routes
 // get all emojis and Content for given ES
-app.get('api/:emojiString?', dbController.getPointsContentAndClue);
+app.get('/api/:emojiString?', dbController.getPointsContentAndClue);
 
 // add an emoji to given ES
-app.post('api/:emojiString?', inputController.validatePoint, dbController.addPoint);
+app.post('/api/:emojiString?', inputController.validatePoint, dbController.addPoint);
 
 // add content to path
-app.post('api/new/content/:emojiString?', inputController.validateContent, dbController.addContent);
+app.post('/api/new/content/:emojiString?', inputController.validateContent, dbController.addContent);
 
 
 const PORT = process.env.PORT || 5000;
