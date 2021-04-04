@@ -24,49 +24,50 @@ path="/etc/letsencrypt/live/$domains"
 mkdir -p "$data_path/conf/live/$domains"
 docker exec $(docker ps -q -f name=proxy_certbot)
   openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1\
-    -keyout './data/certbot/conf/live/bsco.xyz/privkey.pem' \
-    -out './data/certbot/conf/live/bsco.xyz/fullchain.pem'
+    -keyout '$path/privkey.pem' \
+    -out '$path/fullchain.pem'
 echo
 
 
-#echo "### Starting nginx ..."
-#docker stack deploy -c docker-stack.yml bsco
-#echo
-#
-#echo "### Deleting dummy certificate for $domains ..."
-#docker-compose run --rm --entrypoint "\
-#  rm -Rf /etc/letsencrypt/live/$domains && \
-#  rm -Rf /etc/letsencrypt/archive/$domains && \
-#  rm -Rf /etc/letsencrypt/renewal/$domains.conf" certbot
-#echo
-#
-#
-#echo "### Requesting Let's Encrypt certificate for $domains ..."
-##Join $domains to -d args
-#domain_args=""
-#for domain in "${domains[@]}"; do
-#  domain_args="$domain_args -d $domain"
-#done
-#
-## Select appropriate email arg
-#case "$email" in
-#  "") email_arg="--register-unsafely-without-email" ;;
-#  *) email_arg="--email $email" ;;
-#esac
-#
-## Enable staging mode if needed
-#if [ $staging != "0" ]; then staging_arg="--staging"; fi
-#
-#docker-compose run --rm --entrypoint "\
-#  certbot certonly --webroot -w /var/www/certbot \
-#    $staging_arg \
-#    $email_arg \
-#    $domain_args \
-#    --rsa-key-size $rsa_key_size \
-#    --agree-tos \
-#    --force-renewal" certbot
-#echo
-#
-#echo "### Reloading nginx ..."
-#docker stack deploy -c docker-stack-proxy.yml proxy
-#docker stack deploy -c docker-stack.yml bsco
+echo "### Starting nginx ..."
+docker stack deploy -c docker-stack.yml bsco
+echo
+
+echo "### Deleting dummy certificate for $domains ..."
+docker exec $(docker ps -q -f name=proxy_certbot) "\
+  rm -Rf /etc/letsencrypt/live/$domains && \
+  rm -Rf /etc/letsencrypt/archive/$domains && \
+  rm -Rf /etc/letsencrypt/renewal/$domains.conf"
+echo
+
+
+echo "### Requesting Let's Encrypt certificate for $domains ..."
+#Join $domains to -d args
+domain_args=""
+for domain in "${domains[@]}"; do
+  domain_args="$domain_args -d $domain"
+done
+
+# Select appropriate email arg
+case "$email" in
+  "") email_arg="--register-unsafely-without-email" ;;
+  *) email_arg="--email $email" ;;
+esac
+
+# Enable staging mode if needed
+if [ $staging != "0" ]; then staging_arg="--staging"; fi
+
+
+docker exec $(docker ps -q -f name=proxy_certbot) "\
+  certbot certonly --webroot -w /var/www/certbot \
+    $staging_arg \
+    $email_arg \
+    $domain_args \
+    --rsa-key-size $rsa_key_size \
+    --agree-tos \
+    --force-renewal"
+echo
+
+echo "### Reloading nginx ..."
+docker stack deploy -c docker-stack-proxy.yml proxy
+docker stack deploy -c docker-stack.yml bsco

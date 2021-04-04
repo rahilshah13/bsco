@@ -12,14 +12,11 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: bsco
-    deploy:
-      labels:
-        traefik.http.routers.app.rule: Host(`localhost`)
-        traefik.http.services.app.loadbalancer.server.port: 5000
   nginx:
     image: nginx:alpine
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ../bsco/build:/var/www
       - ./data/nginx/:/etc/nginx/conf.d/
@@ -27,10 +24,6 @@ services:
       - ./data/certbot/www:/var/www/certbot
     networks:
       - proxy
-    deploy:
-      labels:
-        traefik.http.routers.app.rule: Host(`bsco.xyz`)
-        traefik.http.services.app.loadbalancer.server.port: 443
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 networks:
   proxy:
