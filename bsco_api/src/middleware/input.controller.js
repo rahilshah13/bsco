@@ -13,7 +13,7 @@ function validatePoint(req, res, next) {
             validationRes = validateCoordAndClue(x, y, clue, secret);
 
             if(validationRes === 'valid') {
-                let emojiString = req.path.replace("/api/", "");
+                let emojiString = req.path.replace("/", "");
 
                 req.body.parentPath = emojiString === "" ? "/" : emojiString;
                 req.body.fullPath = emojiString + encodeURIComponent(emoji);
@@ -66,7 +66,7 @@ function validateCoordAndClue(xCoord, yCoord, clue, secret) {
 
 function validateContent(req, res, next) {
     const { content } = req.body;
-    req.body.fullPath = req.path === '/api/new/content' ? "/" : req.path.split("/")[2];
+    req.body.fullPath = req.path === '/new/content' ? "/" : req.path.split("/")[2];
     console.log("Full path: "+ req.body.fullPath);
 
     //get rid of leading and trailing whitespace

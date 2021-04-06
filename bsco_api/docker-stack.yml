@@ -4,6 +4,8 @@ services:
     image: rahilshah/bsco:latest
     ports:
       - 5000:5000
+    volumes:
+      - ./src:/usr/local/app/src
     networks:
       - proxy
     environment:

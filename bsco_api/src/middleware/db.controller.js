@@ -8,7 +8,7 @@ async function getPointsContentAndClue(req, res) {
     // get all emojis from parent route
     const query_res = {points: "", content: "", clue: ""};
 
-    let fullPath = req.path === "/api/" ? "/" : req.path.replace("/", "");
+    let fullPath = req.path === "/" ? "/" : req.path.replace("/", "");
 
     console.log(fullPath);
     const cachedResult = await getAsync(fullPath);

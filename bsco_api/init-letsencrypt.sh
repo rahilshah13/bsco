@@ -22,10 +22,10 @@ fi
 echo "### Creating dummy certificate for $domains ..."
 path="/etc/letsencrypt/live/$domains"
 mkdir -p "$data_path/conf/live/$domains"
-docker exec $(docker ps -q -f name=proxy_certbot)
-  openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1\
-    -keyout '$path/privkey.pem' \
-    -out '$path/fullchain.pem'
+docker exec $(docker ps -q -f name=proxy_certbot) \
+  openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1 \
+    -keyout $path/privkey.pem \
+    -out $path/fullchain.pem
 echo
 
 
@@ -34,10 +34,10 @@ docker stack deploy -c docker-stack.yml bsco
 echo
 
 echo "### Deleting dummy certificate for $domains ..."
-docker exec $(docker ps -q -f name=proxy_certbot) "\
+docker exec $(docker ps -q -f name=proxy_certbot) \
   rm -Rf /etc/letsencrypt/live/$domains && \
   rm -Rf /etc/letsencrypt/archive/$domains && \
-  rm -Rf /etc/letsencrypt/renewal/$domains.conf"
+  rm -Rf /etc/letsencrypt/renewal/$domains.conf
 echo
 
 
@@ -58,14 +58,14 @@ esac
 if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
 
-docker exec $(docker ps -q -f name=proxy_certbot) "\
+docker exec $(docker ps -q -f name=proxy_certbot) \
   certbot certonly --webroot -w /var/www/certbot \
     $staging_arg \
     $email_arg \
     $domain_args \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
-    --force-renewal"
+    --force-renewal
 echo
 
 echo "### Reloading nginx ..."
