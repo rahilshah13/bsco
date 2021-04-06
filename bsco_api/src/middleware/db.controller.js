@@ -7,16 +7,21 @@ const INSERT_QS = `INSERT INTO points(full_path, parent_path, emoji, location, c
 async function getPointsContentAndClue(req, res) {
     // get all emojis from parent route
     const query_res = {points: "", content: "", clue: ""};
+    let fullPath = "";
 
-    let fullPath = req.path === "/" ? "/" : req.path.replace("/", "");
+    if(req.path === "/api/")
+        fullPath = "/";
+    else
+        fullPath = req.path.replace("/api/", "").replace("/", "");
 
-    console.log(fullPath);
+
+    console.log("full path: " + fullPath);
     const cachedResult = await getAsync(fullPath);
 
-    console.log("serving from cache");
-
-    if(cachedResult)
+    if(cachedResult) {
+        console.log("serving from cache");
         return res.status(200).send(JSON.parse(cachedResult));
+    }
 
 
     // get clue
@@ -93,15 +98,14 @@ async function addPoint(req, res, next) {
 
 async function addContent(req, res, next) {
     const { content, url, secret, fullPath } = req.body;
-    console.log("WHAT IT DO");
-
+    console.log("HELLo");
     try {
         // validate secret
         const point = await pool.query('SELECT * FROM points WHERE full_path=$1', [fullPath]);
-
-        if(await compare_secrets(secret, point.rows[0].secret)) {
+        if(point.rows.length !== 0 && await compare_secrets(secret, point.rows[0].secret)) {
             pool.query('INSERT INTO content(full_path, URL, content) VALUES($1, $2, $3)', [fullPath, url, content])
                 .then( async (result) => {
+                    console.log("plsss")
                     // delete cached data
                     await delAsync(fullPath);
                     return res.status(200).send("great success!");
@@ -110,6 +114,9 @@ async function addContent(req, res, next) {
                     console.log(err);
                     return res.status(400).send("could not add content");
                 });
+        } else {
+            console.log("plsss")
+            return res.status(400).send("could not add content");
         }
     } catch(e) {
         console.log(e);
