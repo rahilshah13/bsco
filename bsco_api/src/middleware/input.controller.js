@@ -66,9 +66,9 @@ function validateCoordAndClue(xCoord, yCoord, clue, secret) {
 
 function validateContent(req, res, next) {
     const { content } = req.body;
-    req.body.fullPath = req.path === '/api/new/content/' ? "/" : req.path.split("/")[4];
+    req.body.fullPath = req.path === '/api/new/content' ? "/" : req.path.split("/")[4];
     console.log("Full path: "+ req.body.fullPath);
-
+    //console.log("path: "+ req.path);
     //get rid of leading and trailing whitespace
      req.body.url =  req.body.url.trim();
 
@@ -97,3 +97,4 @@ module.exports = {
     validatePoint,
     validateContent
 };
+

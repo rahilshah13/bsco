@@ -57,7 +57,8 @@ function compare_secrets(candidate, actual) {
             if (!isMatch) {
                 return reject(false);
             }
-            resolve(true);
+            console.log("its a match!");
+            return resolve(true);
         });
     });
 }
@@ -98,14 +99,15 @@ async function addPoint(req, res, next) {
 
 async function addContent(req, res, next) {
     const { content, url, secret, fullPath } = req.body;
-    console.log("HELLo");
     try {
         // validate secret
-        const point = await pool.query('SELECT * FROM points WHERE full_path=$1', [fullPath]);
+        const point = await pool.query('SELECT * FROM points WHERE full_path=$1', [fullPath])
+            .catch(() => { return res.status(400).send("could not add content") });
+        console.log(point.rows);
         if(point.rows.length !== 0 && await compare_secrets(secret, point.rows[0].secret)) {
             pool.query('INSERT INTO content(full_path, URL, content) VALUES($1, $2, $3)', [fullPath, url, content])
                 .then( async (result) => {
-                    console.log("plsss")
+                    console.log("content added")
                     // delete cached data
                     await delAsync(fullPath);
                     return res.status(200).send("great success!");
@@ -115,7 +117,6 @@ async function addContent(req, res, next) {
                     return res.status(400).send("could not add content");
                 });
         } else {
-            console.log("plsss")
             return res.status(400).send("could not add content");
         }
     } catch(e) {
