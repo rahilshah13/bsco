@@ -10,20 +10,20 @@ const { hash_secret, initTables } = require('./helpers/db');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 //configure cors correctly in prod
-app.use(cors());
+//app.use(cors());
 
 hash_secret("yung___boat", initTables);
 console.log("tables initialized");
 
 // routes
 // get all emojis and Content for given ES
-app.get('/:emojiString?', dbController.getPointsContentAndClue);
+app.get('/api/:emojiString?', dbController.getPointsContentAndClue);
 
 // add an emoji to given ES
-app.post('/:emojiString?', inputController.validatePoint, dbController.addPoint);
+app.post('/api/:emojiString?', inputController.validatePoint, dbController.addPoint);
 
 // add content to path
-app.post('/new/content/:emojiString?', inputController.validateContent, dbController.addContent);
+app.post('/api/new/content/:emojiString?', inputController.validateContent, dbController.addContent);
 
 
 const PORT = process.env.PORT || 5000;

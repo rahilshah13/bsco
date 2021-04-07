@@ -58,7 +58,8 @@ function ContentForm({isComp, clue}){
         <ReactTooltip id="myClueTip">my clue</ReactTooltip>
         <p style={clueStyle}><strong>{clue}</strong></p>
 
-        <h1 style={{}}>㊙</h1>
+        <h1 data-tip data-for="secretTip" style={{}}>㊙</h1>
+        <ReactTooltip id="secretTip">use clue to guess answer</ReactTooltip>
         <input type="text" name="secret" placeholder="secret answer" style={textInputStyle} value={values.secret} onChange={handleChange} />
       </div>    
       <div style={{marginBottom: isComp ? "2.5vw" : "6vw"}}>

@@ -76,7 +76,7 @@ return (
           </PointModal>
 
           <CreateModal show={values.showCm} handleClose={hideModal} isComp={values.isComputer}>
-            <p style={{ marginTop: "2.25vh", fontSize: "2.5vh"}}>breate</p>
+            <p style={{ marginTop: "2.25vh", fontSize: "2.5vh"}}>bost bontent</p>
             <ContentForm isComp={values.isComputer} clue={apiData.clue !== null ? apiData.clue[0].clue : "deeznuts"} />
           </CreateModal>
         </Route>
