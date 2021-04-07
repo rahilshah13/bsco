@@ -57,7 +57,8 @@ function compare_secrets(candidate, actual) {
             if (!isMatch) {
                 return reject(false);
             }
-            resolve(true);
+            console.log("its a match!");
+            return resolve(true);
         });
     });
 }
@@ -102,6 +103,7 @@ async function addContent(req, res, next) {
     try {
         // validate secret
         const point = await pool.query('SELECT * FROM points WHERE full_path=$1', [fullPath]);
+        console.log(point.rows);
         if(point.rows.length !== 0 && await compare_secrets(secret, point.rows[0].secret)) {
             pool.query('INSERT INTO content(full_path, URL, content) VALUES($1, $2, $3)', [fullPath, url, content])
                 .then( async (result) => {
