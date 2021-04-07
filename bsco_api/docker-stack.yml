@@ -4,8 +4,8 @@ services:
     image: rahilshah/bsco:latest
     ports:
       - 5000:5000
-    volumes:
-      - ./src:/usr/local/app/src
+    #volumes:
+    #  - ./src:/usr/local/app/src
     networks:
       - proxy
     environment:
@@ -14,6 +14,10 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: bsco
+    #deploy:
+    #  labels:
+    #    traefik.https.routers.app.rule: Host(`app.localhost`)
+    #    traefik.https.services.app.loadbalancer.server.port: 5000
   nginx:
     image: nginx:alpine
     ports:
@@ -26,6 +30,11 @@ services:
       - ./data/certbot/www:/var/www/certbot
     networks:
       - proxy
+    #deploy:
+    #  labels:
+    #    traefik.https.routers.nginx.rule: Host(`nginx.localhost`)
+    #    traefik.https.services.nginx.loadbalancer.server.port: 443
+
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 networks:
   proxy:
