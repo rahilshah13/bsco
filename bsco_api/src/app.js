@@ -10,7 +10,7 @@ const { hash_secret, initTables } = require('./helpers/db');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 //configure cors correctly in prod
-//app.use(cors());
+app.use(cors());
 
 hash_secret("yung___boat", initTables);
 console.log("tables initialized");
