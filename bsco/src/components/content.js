@@ -5,8 +5,8 @@ const noContentStyle = {opacity: "0.5"};
 
 function Content({isComputer, isLoading, contentList, match}) {
    const containerStyle = isComputer 
-   ? { padding:"1%", height: "75vh", marginLeft: "20%", marginRight: "20%"}
-   : { padding:"1%", height: "75vh", marginLeft: "10%", marginRight: "10%"};
+   ? { padding:".5%", height: "77vh", marginLeft: "20%", marginRight: "20%", overflowY: "auto"}
+   : { padding:".5%", height: "77vh", marginLeft: "10%", marginRight: "10%", overflowY: "auto"};
 
 
   return (
