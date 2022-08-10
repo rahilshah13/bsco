@@ -19,5 +19,5 @@
 **/yarn-debug.log*
 **/yarn-error.log*
 **/.idea/**
-./bsco_api/pgdata/
-./bsco_api/data/certbot/
+bsco_api/pgdata/
+bsco_api/data/*/

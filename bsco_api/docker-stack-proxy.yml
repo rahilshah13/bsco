@@ -12,7 +12,7 @@ services:
   cache:
     image: redis
   db:
-    image: postgres
+    image: postgres:13
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     environment:

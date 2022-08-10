@@ -19,26 +19,25 @@ if [ -d "$data_path" ]; then
 fi
 
 
-echo "### Creating dummy certificate for $domains ..."
-path="/etc/letsencrypt/live/$domains"
-mkdir -p "$data_path/conf/live/$domains"
-docker exec $(docker ps -q -f name=proxy_certbot) \
-  openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1 \
-    -keyout $path/privkey.pem \
-    -out $path/fullchain.pem
-echo
-
+#echo "### Creating dummy certificate for $domains ..."
+#path="/etc/letsencrypt/live/$domains"
+#mkdir -p "$data_path/conf/live/$domains"
+#docker exec $(docker ps -q -f name=proxy_certbot) \
+#  openssl req -x509 -nodes -newkey rsa:$rsa_key_size -days 1 \
+#    -keyout $path/privkey.pem \
+#    -out $path/fullchain.pem
+#echo
 
 echo "### Starting nginx ..."
 docker stack deploy -c docker-stack.yml bsco
 echo
 
-echo "### Deleting dummy certificate for $domains ..."
-docker exec $(docker ps -q -f name=proxy_certbot) \
-  rm -Rf /etc/letsencrypt/live/$domains && \
-  rm -Rf /etc/letsencrypt/archive/$domains && \
-  rm -Rf /etc/letsencrypt/renewal/$domains.conf
-echo
+#echo "### Deleting dummy certificate for $domains ..."
+#docker exec $(docker ps -q -f name=proxy_certbot) \
+#  rm -Rf /etc/letsencrypt/live/$domains && \
+#  rm -Rf /etc/letsencrypt/archive/$domains && \
+#  rm -Rf /etc/letsencrypt/renewal/$domains.conf
+#echo
 
 
 echo "### Requesting Let's Encrypt certificate for $domains ..."
@@ -55,17 +54,19 @@ case "$email" in
 esac
 
 # Enable staging mode if needed
-if [ $staging != "0" ]; then staging_arg="--staging"; fi
+#if [ $staging != "0" ]; then staging_arg="--staging"; fi
 
 
 docker exec $(docker ps -q -f name=proxy_certbot) \
-  certbot certonly --webroot -w /var/www/certbot \
+  certbot certonly --webroot -v -w /var/www/certbot \
     $staging_arg \
     $email_arg \
     $domain_args \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
     --force-renewal
+echo
+#docker exec $(docker ps -q -f name=proxy_certbot) certbot renew
 echo
 
 echo "### Reloading nginx ..."
