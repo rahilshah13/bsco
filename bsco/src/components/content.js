@@ -1,6 +1,7 @@
 import '../styles/app.css';
 
 const loadingMessage = <span style={{position: "absolute", fontSize: "30vh", top: "27%", left: "43%",textAlign:"center"}}>⌛</span>;
+const noContentStyle = {opacity: "0.5"};
 
 function Content({isComputer, isLoading, contentList, match}) {
    const containerStyle = isComputer 
@@ -12,8 +13,9 @@ function Content({isComputer, isLoading, contentList, match}) {
     isLoading
     ? loadingMessage
     :<div style={containerStyle}>
-        { 
-        contentList.map((value, index) => {
+        {
+        contentList.length !== 0
+	? contentList.map((value, index) => {
           const contentContainer = isComputer
           ? {marginBottom: "5vh", left: "33%", right: "33%", fontSize: "3vh"}
           : {marginBottom: "2vh", left: "33%", right: "33%", fontSize: "3vh"};
@@ -21,11 +23,12 @@ function Content({isComputer, isLoading, contentList, match}) {
           const style = {textDecoration: "none", backgroundColor: "green"};
           return (
             <div style={contentContainer}>
-              <a key={value.id} style={style} href={value.url}>
+              <a key={value.id} style={style} href={value.url} target="_blank">
                 <p style={{color: "#000000"}}>{value.content}</p>
-              </a> 
+              </a>
             </div>
-        )})
+          )})
+	:<span style={noContentStyle}>no content posted yet</span>
         }
     </div>
   );

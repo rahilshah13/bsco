@@ -58,7 +58,7 @@ function EmojiForm({isComp}){
 
         <input type="text" name="clue" placeholder="provide a clue" style={textInputStyle} value={values.clue} onChange={handleChange} />
         <h1 data-tip data-for="clueTip" style={{marginBottom:".1vh"}}>㊙</h1>
-        <input type="text" name="secret" placeholder="secret answer" style={textInputStyle} value={values.secret} onChange={handleChange} />
+        <input type="password" name="secret" placeholder="secret answer" style={textInputStyle} value={values.secret} onChange={handleChange} />
       </div>    
       <div style={{marginBottom: isComp ? "2.5vw" : "6vw"}}>
         <button style={{backgroundColor:"transparent", outline:"none", border: "none", fontSize:"4vh"}} onClick={handleSubmit}>🆗</button>

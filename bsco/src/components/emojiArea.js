@@ -9,7 +9,7 @@ const cn = Math.floor(Math.random() * 6);
 function EmojiArea({isComp, isLoading, emojiList, match}) {
     
   const containerStyle = {backgroundColor: colors[cn], height: "77vh", marginLeft: "10%", 
-                          marginTop: "2%", width: "80%"};
+                          marginTop: ".5%", width: "80%"};
 
   return (
     isLoading
@@ -17,7 +17,7 @@ function EmojiArea({isComp, isLoading, emojiList, match}) {
     :<div style={containerStyle}>
         {emojiList.map((value, index) => {
             const style = {position: "absolute", left: `${parseInt(value.location.x)*.787+10.2}%`, 
-            bottom: `${parseInt(value.location.y)*.74+9}%`, textDecoration: "none"}; 
+            bottom: `${parseInt(value.location.y)*.74+10.5}%`, textDecoration: "none"}; 
 
             return <a key={value.full_path} style={style} href={`/${decodeURIComponent(value.full_path)}`}>{value.emoji} </a>
         })}

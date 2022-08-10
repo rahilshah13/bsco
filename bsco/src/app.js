@@ -8,6 +8,7 @@ import ContentForm from './components/content_form';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import api_service from './services/api_service';
 import EmojiArea from './components/emojiArea';
+import SearchBar from './components/search_bar';
 
 
 function App() {
@@ -16,6 +17,7 @@ const [values, setValues] = useState({showPm: false, showCm: false, mode: 'searc
 isLoading: false, isComputer: window.innerWidth > 1000, modalMode: ""});
 
 const [apiData, setApiData] = useState({clue: null, points: null, content: null});
+const [ep, setEp] = useState(decodeURIComponent(window.location.href.split("/").slice(-1)[0]));
 
 const showModal = (newMode) => {
   if (newMode === 'connect') 
@@ -31,7 +33,7 @@ const hideModal = () => {
 
 const changeMode = (value) => {
   setValues({...values, mode: value});
-}   
+}
 
 
 // get data
@@ -49,7 +51,7 @@ useEffect(()=> {
     }
   }
   fetchData(decodeURIComponent(window.location.href.split("/").slice(-1)[0]));
-}, []);
+}, [ep]);
 
 //console.log(apiData.content);
 
@@ -57,10 +59,16 @@ return (
   <Router>
     <div style={{ "textAlign": "center" }}>
       <header style={{padding: "1%"}}>
-        <button className="titleChars" onClick={() => showModal("breate")}>{values.modalMode === "breate" ? "🅱️" : "b"}</button>
-        <button className="titleChars" onClick={() => changeMode("search")}>{values.mode === "search" ? "🔎" : "s"}</button>
-        <button className="titleChars" onClick={() => showModal("connect")}>{values.modalMode === "connect" ? "🔗" : "c"}</button>
-        <button className="titleChars" onClick={() => changeMode("open")}>{values.mode === "open" ? "📖" : "o"}</button>
+        {
+          apiData.clue
+          ? <>
+              <button className="titleChars" onClick={() => showModal("breate")}>{values.modalMode === "breate" ? "🅱️" : "b"}</button>
+              <button className="titleChars" onClick={() => changeMode("search")}>{values.mode === "search" ? "🔎" : "s"}</button>
+              <button className="titleChars" onClick={() => showModal("connect")}>{values.modalMode === "connect" ? "🔗" : "c"}</button>
+              <button className="titleChars" onClick={() => changeMode("open")}>{values.mode === "open" ? "📖" : "o"}</button>
+            </>
+          : <span className="titleChars">endpoint doesn't exist</span>
+        }
       </header>
       <Switch>
         <Route exact path="/:emojiPath?">
@@ -81,6 +89,7 @@ return (
           </CreateModal>
         </Route>
       </Switch>
+      <SearchBar ep={ep} setEp={setEp} />
     </div>
     </Router>
   );

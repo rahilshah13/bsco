@@ -32,9 +32,9 @@ function ContentForm({isComp, clue}){
       const res = !emojiPath 
       ? await api_service.post("new/content", values) 
       : await api_service.post("new/content/"+emojiPath, values);
-      
+
       console.log(res);
-      
+
       if(res.status === 200) {
         history.go(0);
         alert("content added successfully!");
@@ -49,19 +49,19 @@ function ContentForm({isComp, clue}){
     <form onSubmit={handleSubmit}>
       <div style={formStyle}>
         <h1>✍</h1>
-        <textarea type="text" name="content" placeholder="say something" style={textInputStyle} value={values.content} onChange={handleChange} />
+        <textarea type="text" name="content" placeholder="say something" style={textInputStyle} value={values.content} onChange={handleChange} maxLength="140"/>
 
         <h1>🌐</h1>
         <input type="text" name="url" placeholder="add url" style={textInputStyle} value={values.url} onChange={handleChange} />
-        
+
         <h1 data-tip data-for="myClueTip">🕵</h1>
         <ReactTooltip id="myClueTip">my clue</ReactTooltip>
         <p style={clueStyle}><strong>{clue}</strong></p>
 
         <h1 data-tip data-for="secretTip" style={{}}>㊙</h1>
         <ReactTooltip id="secretTip">use clue to guess answer</ReactTooltip>
-        <input type="text" name="secret" placeholder="secret answer" style={textInputStyle} value={values.secret} onChange={handleChange} />
-      </div>    
+        <input type="password" name="secret" placeholder="secret answer" style={textInputStyle} value={values.secret} onChange={handleChange} />
+      </div>
       <div style={{marginBottom: isComp ? "2.5vw" : "6vw"}}>
         <button style={{backgroundColor:"transparent", outline:"none", border: "none", fontSize:"4vh"}} onClick={handleSubmit}>🆗</button>
       </div>
